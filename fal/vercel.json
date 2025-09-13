@@ -1,0 +1,94 @@
+{
+  "version": 2,
+  "buildCommand": "npm run vercel-build",
+  "outputDirectory": "frontend/.next",
+  "installCommand": "npm install",
+  "devCommand": "npm run dev:frontend",
+  "framework": "nextjs",
+  "rootDirectory": "frontend",
+  "functions": {
+    "backend/api/index.ts": {
+      "runtime": "nodejs18.x",
+      "maxDuration": 30,
+      "memory": 1024
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/health",
+      "dest": "/backend/api/index.ts"
+    },
+    {
+      "src": "/api/auth/(.*)",
+      "dest": "/backend/api/index.ts"
+    },
+    {
+      "src": "/api/user/(.*)",
+      "dest": "/backend/api/index.ts"
+    },
+    {
+      "src": "/api/coins/(.*)",
+      "dest": "/backend/api/index.ts"
+    },
+    {
+      "src": "/api/rituals/(.*)",
+      "dest": "/backend/api/index.ts"
+    },
+    {
+      "src": "/api/ai-chat/(.*)",
+      "dest": "/backend/api/index.ts"
+    },
+    {
+      "src": "/api/fortune/(.*)",
+      "dest": "/backend/api/index.ts"
+    },
+    {
+      "src": "/api/notifications/(.*)",
+      "dest": "/backend/api/index.ts"
+    },
+    {
+      "src": "/api/fortune-limits/(.*)",
+      "dest": "/backend/api/index.ts"
+    },
+    {
+      "src": "/api/admin/(.*)",
+      "dest": "/backend/api/index.ts"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/backend/api/index.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/$1"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization, X-Requested-With, Accept, Origin"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/backend/api/index.ts"
+    }
+  ]
+}

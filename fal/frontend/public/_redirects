@@ -1,0 +1,8 @@
+# API routes
+/api/* /backend/api/index.ts 200
+
+# Health check
+/health /backend/api/index.ts 200
+
+# Fallback for SPA
+/* /index.html 200
